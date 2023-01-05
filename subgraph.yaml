@@ -1,6 +1,6 @@
 specVersion: 0.0.4
 description: Free NFT drops (v2 only) on showtime.xyz
-repository: https://github.com/showtime-xyz/subgraphs
+repository: https://github.com/showtime-xyz/free-nfts-subgraph-v2-only
 features:
   - nonFatalErrors
 schema:
