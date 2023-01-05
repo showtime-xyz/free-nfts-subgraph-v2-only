@@ -1,4 +1,8 @@
-specVersion: 0.0.1
+specVersion: 0.0.4
+description: Free NFT drops (v2 only) on showtime.xyz
+repository: https://github.com/showtime-xyz/subgraphs
+features:
+  - nonFatalErrors
 schema:
   file: ./schema.graphql
 dataSources:
@@ -8,16 +12,21 @@ dataSources:
     source:
       address: "0x50c0013278D798c1cD0b3A0809853fd6D4006e1F"
       abi: GatedEditionCreator
+      startBlock: 37116758
     mapping:
       kind: ethereum/events
-      apiVersion: 0.0.5
+      apiVersion: 0.0.7
       language: wasm/assemblyscript
       entities:
-        - CreatedEdition
+        - FreeNFTDrop
       abis:
         - name: GatedEditionCreator
           file: ./abis/GatedEditionCreator.json
+        - name: Edition
+          file: ./abis/Edition.json
       eventHandlers:
         - event: CreatedEdition(indexed uint256,indexed address,address,string)
           handler: handleCreatedEdition
-      file: ./src/gated-edition-creator.ts
+          # should no longer be needed as we get the deadline directly from the Edition
+          # receipt: true
+      file: ./src/handlers/handle-created-edition-v2.ts
